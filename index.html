@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boas-vindas</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #000; /* Plano de fundo preto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .text-box {
+            background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+            padding: 20px; /* Espaçamento interno */
+            border-radius: 10px; /* Cantos arredondados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra da caixa */
+            text-align: center;
+            animation: showMessages 5s ease-in-out forwards; /* Animação para controlar a exibição das mensagens */
+        }
+
+        .typewriter, .typewriter2 {
+            border-right: 0.15em solid transparent; /* Caractere do cursor (inicialmente transparente) */
+            white-space: nowrap;
+            overflow: hidden; /* Oculta o texto */
+            font-family: 'Courier New', Courier, monospace; /* Fonte do efeito de digitação */
+            font-size: 2em; /* Tamanho da fonte */
+            opacity: 0; /* Começa invisível */
+        }
+
+        .typewriter {
+            animation: typing 3s steps(30, end) 0s forwards;
+            /* Animação para a primeira mensagem */
+        }
+
+        .typewriter2 {
+            animation: typing2 3s steps(30, end) 3s forwards;
+            /* Animação para a segunda mensagem */
+        }
+
+        @keyframes typing {
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        @keyframes typing2 {
+            from { width: 0; opacity: 0; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        @keyframes showMessages {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .typewriter:last-child::after {
+            content: "|"; /* Adiciona o cursor piscante após o texto */
+            animation: blink-caret 0.75s step-end infinite 3s; /* Animação do cursor */
+        }
+
+        /* Estilos para os modais */
+        .modal {
+            display: none; /* Inicia oculto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animação para mostrar o modal */
+        @keyframes modal-show {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos dos botões */
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 20px; /* Bordas arredondadas */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Fundo ao passar o mouse */
+        }
+
+        .button-container .button-red {
+            background-color: #ff6347; /* Vermelho */
+            color: white;
+        }
+
+        .button-container .button-blue {
+            background-color: #1e90ff; /* Azul */
+            color: white;
+        }
+
+        .button-container .button-green {
+            background-color: #32cd32; /* Verde */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-box">
+        <div class="typewriter">Bem-vindo ao meu primeiro site!</div>
+        <br>
+        <div class="typewriter2">Por favor, escolha uma das empresas:</div>
+        <br>
+        <div id="buttons-container" style="display: none;" class="button-container">
+            <button class="button-red" onclick="openModal('modal1')">ALLERGAN</button>
+            <button class="button-blue" onclick="openModal('modal2')">ASTRAZENECA</button>
+            <button class="button-green" onclick="openModal('modal3')">MONDELEZ</button>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal1')">&times;</span>
+            <h2>Modal Empresa A</h2>
+            <p>Conteúdo da Empresa A...</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal2')">&times;</span>
+            <h2>Modal Empresa B</h2>
+            <p>Conteúdo da Empresa B...</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal3')">&times;</span>
+            <h2>Modal Empresa C</h2>
+            <p>Conteúdo da Empresa C...</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para abrir o modal
+        function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "block";
+                modal.classList.add("animate__animated", "animate__fadeIn"); // Adiciona classe de animação
+                setTimeout(function() {
+                    modal.classList.remove("animate__fadeIn"); // Remove a classe de animação após 1 segundo
+                }, 1000);
+            }
+        }
+
+        // Função para fechar o modal
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add("animate__animated", "animate__fadeOut"); // Adiciona classe de animação de saída
+                setTimeout(function() {
+                    modal.style.display = "none";
+                    modal.classList.remove("animate__fadeOut"); // Remove a classe de animação após 1 segundo
+                }, 1000);
+            }
+        }
+
+        // Mostrar os botões após a apresentação das mensagens
+        setTimeout(function() {
+            var buttonsContainer = document.getElementById('buttons-container');
+            if (buttonsContainer) {
+                buttonsContainer.style.display = 'flex';
+            }
+        }, 6500); // Mostrar os botões após 5 segundos (tempo da animação showMessages)
+    </script>
+</body>
+</html>
